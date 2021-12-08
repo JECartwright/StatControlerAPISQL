@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>PushAPIToSQL</id>
+    <version>1.0.0</version>
+    <authors>PushAPIToSQL</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Amazon.Lambda.Core" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Amazon.Lambda.Serialization.SystemTextJson" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="MySql.Data" version="8.0.27" exclude="Build,Analyzers" />
+        <dependency id="System.Data.SqlClient" version="4.8.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Users\Joshua\Documents\Work\lambda\PushAPIToSQL\bin\Release\netcoreapp3.1\PushAPIToSQL.runtimeconfig.json" target="lib\netcoreapp3.1\PushAPIToSQL.runtimeconfig.json" />
+    <file src="D:\Users\Joshua\Documents\Work\lambda\PushAPIToSQL\bin\Release\netcoreapp3.1\PushAPIToSQL.dll" target="lib\netcoreapp3.1\PushAPIToSQL.dll" />
+  </files>
+</package>
