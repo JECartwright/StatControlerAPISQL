@@ -24,7 +24,7 @@ namespace PushAPIToSQL
         /// <param name="context"></param>
         /// <returns></returns>
 
-        public async Task FunctionHandler(string input, ILambdaContext context)
+        public async Task FunctionHandler(ILambdaContext context)
         {
             Console.WriteLine("Atempting To Connect To SQL Server");
             //SQL
@@ -50,15 +50,23 @@ namespace PushAPIToSQL
             string[] responcearr;
             for (int z = 0; z < steamIDDir.Count; z++)
             {
-                Console.WriteLine($"Atempting To Connect Steam API Key:{steamAPIKey} UserID:{steamIDDir[z]}");
+                Console.WriteLine("----------------------------------------------------");
+                Console.WriteLine($"Atempting To Connect To Steam API UserID:{steamIDDir[z]}");
                 Console.WriteLine($"Full Steam API URL:{connectionURL + steamIDDir[z]}");
                 string responce = null;
-                using (var client = new WebClient())
+                try
                 {
-                    string url = connectionURL + steamIDDir[z].ToString();
-                    responce = await client.DownloadStringTaskAsync(url);//new
-                    //responce = client.DownloadString(url);//OLD Times Out Here
-                    Console.WriteLine($"Successfully Connected And Retreaved Data From Steam API Key:{steamAPIKey} UserID:{steamIDDir[z]}");
+                    using (var client = new WebClient())
+                    {
+                        string url = connectionURL + steamIDDir[z].ToString();
+                        responce = await client.DownloadStringTaskAsync(url);//new
+                                                                             //responce = client.DownloadString(url);//OLD Times Out Here
+                        Console.WriteLine($"Retreaved Data For UserID:{steamIDDir[z]}");
+                    }
+                }
+                catch (Exception)
+                {
+                    
                 }
                 if (!string.IsNullOrEmpty(responce))
                 {
@@ -91,10 +99,12 @@ namespace PushAPIToSQL
                 else
                 {
                     Console.WriteLine($"Null Data For {steamIDDir[z]}");
+                    steamIDDir.RemoveAt(z);
                 }
               
             }
             //SQL
+            Console.WriteLine("----------------------------------------------------");
             Console.WriteLine("Attempting To Open A Connection To The SQL Server");
             connection.Open();
             Console.WriteLine("Connection Astablished");
